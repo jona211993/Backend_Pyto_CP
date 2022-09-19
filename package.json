@@ -1,16 +1,28 @@
 {
-  "name": "Backend_Pyto_CalidadPrueba",
+  "name": "backend_pyto_cp",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
-        "dev":"nodemon src/index.js"
+    "dev": "nodemon src/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.2",
     "express": "^4.18.1",
+    "mongoose": "^6.6.1",
+    "morgan": "^1.10.0",
     "nodemon": "^2.0.20"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jona211993/Backend_Pyto_CP.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jona211993/Backend_Pyto_CP/issues"
+  },
+  "homepage": "https://github.com/jona211993/Backend_Pyto_CP#readme",
+  "description": ""
 }

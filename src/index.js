@@ -25,8 +25,12 @@ app.use(morgan("dev"));
 app.use(express.json());
 
 // ROUTES
+app.use('/pedidos', require('./routes/pedidos'))
 // Enlazando el archivo Empleadoss:
 // Tambien lee estoy diciendo que todas las rutas van a empezar con / Empleados
+
+//archivos staticos
+app.use(express.static(__dirname + '/public'))
 
 // SERVER  ESCUCHANDO
 app.listen(app.get("port"), () => {
