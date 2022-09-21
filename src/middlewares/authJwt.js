@@ -21,4 +21,6 @@ export const verifyToken= async (req, res,next) => {
    
 }
 
-export const isJefeAlmacen= async (req, res) => {}
+export const isJefeAlmacen= async (req, res) => {
+    console.log("rr")
+}
