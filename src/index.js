@@ -8,9 +8,10 @@ require("dotenv").config();
 // CONECTANDO A LA BD MONGO ATLAS
 const url = process.env.MONGO_DB_URL;
 mongoose
-  .connect(url, { dbName: "GesEmp" })
-  .then(() => console.log("Conectado a Mongo Atlas"))
-  .catch((e) => console.log("Error de conexion" + e));
+  //.connect(url, { dbName: "Pyto_CP" })
+  .connect("mongodb://localhost/Pyto_CP")
+  .then(() => console.log("** Conectado a Mongo DB **"))
+  .catch((e) => console.log("-- Error de conexion " + e));
 
 // SETTING
 app.set("port", process.env.PORT || 4000);
