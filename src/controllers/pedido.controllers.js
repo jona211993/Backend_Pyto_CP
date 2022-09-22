@@ -14,12 +14,16 @@ export const createPedido = async (req, res) => {
           codigo,
           fecha,
           total,
+          estado,
+          observacion,
           itemsPedido,
         } = req.body;
         const newPedido = new Pedido({
           codigo,
           fecha,
           total,
+          estado,
+          observacion,
           itemsPedido,
         })
         const pedidoSaved = await newPedido.save()
@@ -44,6 +48,8 @@ export const updatePedidoById= async (req, res) => {
               codigo,
               fecha,
               total,
+              estado,
+              observacion,
               itemsPedido,
             } = req.body;
         
@@ -55,6 +61,8 @@ export const updatePedidoById= async (req, res) => {
                 codigo,
                 fecha,
                 total,
+                estado,
+                observacion,
                 itemsPedido,
               }
             );

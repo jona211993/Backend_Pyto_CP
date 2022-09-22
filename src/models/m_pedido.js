@@ -3,7 +3,9 @@ import { Schema,model } from 'mongoose';
 const pedido = new Schema({
     codigo: Number,
     fecha: String,
-    total:Number,
+    total: Number,
+    estado: String,
+    observacion: String,
     itemsPedido:[]
     
   // esto ultimo que coloco es para que identifique a la coleccion en la
