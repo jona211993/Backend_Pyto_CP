@@ -2,11 +2,9 @@ import { Schema,model } from 'mongoose';
 
 const pedido = new Schema({
     codigo: Number,
-    nombre: String,
-    stock:Number,
-    costo: Number,
-    descripcion:String,
-    precio:Number,
+    fecha: String,
+    total:Number,
+    itemsPedido:[]
     
   // esto ultimo que coloco es para que identifique a la coleccion en la
   // que deseo trabajar, antes me creaba una nueva.

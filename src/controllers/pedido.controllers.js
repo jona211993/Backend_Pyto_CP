@@ -11,20 +11,16 @@ export const getPedidoById = async (req, res) => {
 export const createPedido = async (req, res) => {
     try {
         const {
-            codigo,
-            nombre,
-            stock,
-            costo,
-            descripcion,
-            precio,
+          codigo,
+          fecha,
+          total,
+          itemsPedido,
         } = req.body;
         const newPedido = new Pedido({
-            codigo,
-            nombre,
-            stock,
-            costo,
-            descripcion,
-            precio,
+          codigo,
+          fecha,
+          total,
+          itemsPedido,
         })
         const pedidoSaved = await newPedido.save()
 
@@ -46,12 +42,9 @@ export const updatePedidoById= async (req, res) => {
     try {
             const {
               codigo,
-              nombre,
-              stock,
-              costo,
-              descripcion,
-              precio,
-              
+              fecha,
+              total,
+              itemsPedido,
             } = req.body;
         
             const { _id } = req.params;
@@ -59,12 +52,10 @@ export const updatePedidoById= async (req, res) => {
             const Pedido_upd = await Pedido.findOneAndUpdate(
               { _id },
               {
-                 codigo,
-              nombre,
-              stock,
-              costo,
-              descripcion,
-              precio,
+                codigo,
+                fecha,
+                total,
+                itemsPedido,
               }
             );
             if (!Pedido_upd) {
