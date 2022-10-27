@@ -51,17 +51,15 @@ export const isAdmin= async (req, res,next) => {
   };
 
 
-// export const isJefeVentas= async (req, res,next) => {
-//     const user=await User.findById(req.userId);
-//     const roles= await Role.find({_id: { $in: user.roles} });
+ export const isALmacenero= async (req, res,next) => {
+    const user=await User.findById(req.userId);
+    const roles= await Role.find({_id: { $in: user.roles} });
   
-//     for (let i=0; i<roles.length; i++){
-//       if(roles[i].name === "jefe_ventas"){
-//           next();
-//           return;
-//       }
-//     }
-//    return res.status(403).json({message:"Requiere Rol Jefe Ventas"});
-//   };
+      if(roles[0].name === "almacenero"){
+          next();
+          return;
+      }
+    return res.status(403).json({message:"Requiere Rol Almacenero"});
+   };
 
 
