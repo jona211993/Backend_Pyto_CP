@@ -28,21 +28,21 @@ export const isJefeAlmacen= async (req, res,next) => {
   const user=await User.findById(req.userId);
   const roles= await Role.find({_id: { $in: user.roles} });
 
-  for (let i=0; i<roles.length; i++){
-    if(roles[i].name === "jefe_almacen"){
+    if(roles.name === "jefe_almacen"){
         next();
         return;
     }
-  }
+  
  return res.status(403).json({message:"Requiere Rol Jefe Almacen"});
 };
 
 export const isAdmin= async (req, res,next) => {
     const user=await User.findById(req.userId);
+    console.log(user.roles)
     const roles= await Role.find({_id: { $in: user.roles} });
-  
+    console.log(roles.name)
     for (let i=0; i<roles.length; i++){
-      if(roles[i].name === "admin"){
+    if(roles[i].name === "admin"){
           next();
           return;
       }
@@ -51,17 +51,17 @@ export const isAdmin= async (req, res,next) => {
   };
 
 
-export const isJefeVentas= async (req, res,next) => {
-    const user=await User.findById(req.userId);
-    const roles= await Role.find({_id: { $in: user.roles} });
+// export const isJefeVentas= async (req, res,next) => {
+//     const user=await User.findById(req.userId);
+//     const roles= await Role.find({_id: { $in: user.roles} });
   
-    for (let i=0; i<roles.length; i++){
-      if(roles[i].name === "jefe_ventas"){
-          next();
-          return;
-      }
-    }
-   return res.status(403).json({message:"Requiere Rol Jefe Ventas"});
-  };
+//     for (let i=0; i<roles.length; i++){
+//       if(roles[i].name === "jefe_ventas"){
+//           next();
+//           return;
+//       }
+//     }
+//    return res.status(403).json({message:"Requiere Rol Jefe Ventas"});
+//   };
 
 
