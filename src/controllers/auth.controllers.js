@@ -38,13 +38,31 @@ export const signUp = async (req, res) => {
 
 export const signIn = async (req, res) => {
     const userFound= await User.findOne({email: req.body.email}).populate("roles");
+
+
     if(!userFound) return res.status(400).json({message:"Usuario no encontrado"})
 
     const matchPassword= await User.comparePassword(req.body.password, userFound.password)
 
     if(!matchPassword) return res.status(401).json({token: null, message: 'Contraseña invalida'})
 
-    const token= jwt.sign({id: userFound._id}, config.SECRET,{
+    
+    const roles= await Role.find({_id: { $in: userFound.roles} });
+    console.log(roles)
+    
+    var rol="";
+
+    try {
+        rol=roles[0].name    
+        
+    } catch (error) {
+        return res.json({
+            message:"No se encontro rol"
+        })
+    }            
+    console.log(rol)
+
+    const token= jwt.sign({id: userFound._id, username: userFound.username, rol: rol}, config.SECRET,{
         expiresIn: 86400
     })
 

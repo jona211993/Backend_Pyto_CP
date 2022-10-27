@@ -7,6 +7,7 @@ import productosRoutes from './routes/producto'
 import auhtRoutes from './routes/auth'
 import usersRoutes from './routes/user'
 
+
 const app = express();
 createRoles();
 app.use(morgan("dev"));
