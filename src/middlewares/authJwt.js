@@ -28,7 +28,7 @@ export const isJefeAlmacen= async (req, res,next) => {
   const user=await User.findById(req.userId);
   const roles= await Role.find({_id: { $in: user.roles} });
 
-    if(roles.name === "jefe_almacen"){
+    if(roles[0].name === "jefe_almacen"){
         next();
         return;
     }
