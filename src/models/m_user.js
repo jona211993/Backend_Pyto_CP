@@ -15,10 +15,10 @@ const userSchema = new Schema(
         type:String,
         unique:true
     },
-    roles:[{
+    roles:{
         ref : "Role",
         type: Schema.Types.ObjectId
-    }]
+    }
 },
   // esto ultimo que coloco es para que identifique a la coleccion en la
   // que deseo trabajar, antes me creaba una nueva.

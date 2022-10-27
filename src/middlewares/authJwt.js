@@ -1,6 +1,9 @@
 //authorizacion
-import config from "../config"
+import jwt from "jsonwebtoken";
+import config from "../config";
+
 import User from '../models/m_user'
+import Role from '../models/m_role'
 
 export const verifyToken= async (req, res,next) => {
     try {
@@ -19,8 +22,46 @@ export const verifyToken= async (req, res,next) => {
         return res.status(500).json({message: 'No autorizado'})
     }
    
-}
+};
 
-export const isJefeAlmacen= async (req, res) => {
-    console.log("rr")
-}
+export const isJefeAlmacen= async (req, res,next) => {
+  const user=await User.findById(req.userId);
+  const roles= await Role.find({_id: { $in: user.roles} });
+
+    if(roles.name === "jefe_almacen"){
+        next();
+        return;
+    }
+  
+ return res.status(403).json({message:"Requiere Rol Jefe Almacen"});
+};
+
+export const isAdmin= async (req, res,next) => {
+    const user=await User.findById(req.userId);
+    console.log(user.roles)
+    const roles= await Role.find({_id: { $in: user.roles} });
+    console.log(roles.name)
+    for (let i=0; i<roles.length; i++){
+    if(roles[i].name === "admin"){
+          next();
+          return;
+      }
+    }
+   return res.status(403).json({message:"Requiere Rol Admin"});
+  };
+
+
+// export const isJefeVentas= async (req, res,next) => {
+//     const user=await User.findById(req.userId);
+//     const roles= await Role.find({_id: { $in: user.roles} });
+  
+//     for (let i=0; i<roles.length; i++){
+//       if(roles[i].name === "jefe_ventas"){
+//           next();
+//           return;
+//       }
+//     }
+//    return res.status(403).json({message:"Requiere Rol Jefe Ventas"});
+//   };
+
+
