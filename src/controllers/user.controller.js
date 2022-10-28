@@ -41,7 +41,11 @@ export const getUsers = async (req, res) => {
 export const getUser = async (req, res) => {
   const { _id } = req.params;
   const user = await User.findById(_id);
-  return res.json(user);
+  return res.json(
+    {status: 200,
+    message: "Se ha obtenido el usuario",
+    data: user}
+    );
 };
 
 //___________________________________
