@@ -34,18 +34,43 @@ export const createUser = async (req, res) => {
 };
 
 export const getUsers = async (req, res) => {
-  const users = await User.find();
-  return res.json(users);
+  try {
+    const users = await User.find();
+     return res.json(
+       {status: 200,
+        message: "Se ha obtenido los usuarios",
+        data: users}
+      );
+  } catch (error) {
+    return res.json(
+      {status: 500,
+      message: "Se ha producido un ERROR al obtener los usuarios",
+      }
+      );
+  }
+
+  
 };
 
 export const getUser = async (req, res) => {
-  const { _id } = req.params;
+  try {
+    const { _id } = req.params;
   const user = await User.findById(_id);
   return res.json(
     {status: 200,
     message: "Se ha obtenido el usuario",
     data: user}
     );
+  } catch (error) {
+    return res.json(
+      {status: 500,
+      message: "Se ha producido un ERROR al obtener el usuario",
+      }
+      );
+  }
+  
+  
+  
 };
 
 //___________________________________
