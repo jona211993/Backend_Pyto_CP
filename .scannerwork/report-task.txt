@@ -1,0 +1,6 @@
+projectKey=Pyto_GestionAlmacen_Key
+serverUrl=http://localhost:9007
+serverVersion=9.7.0.61563
+dashboardUrl=http://localhost:9007/dashboard?id=Pyto_GestionAlmacen_Key
+ceTaskId=AYQ7p9-s_QqRv0uwp2g4
+ceTaskUrl=http://localhost:9007/api/ce/task?id=AYQ7p9-s_QqRv0uwp2g4

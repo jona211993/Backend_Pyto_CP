@@ -48,9 +48,10 @@ export const signIn = async (req, res) => {
 
     
     const roles= await Role.find({_id: { $in: userFound.roles} });
+    
     console.log(roles)
     
-    var rol="";
+    let rol="";
 
     try {
         rol=roles[0].name    
