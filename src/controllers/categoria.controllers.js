@@ -1,81 +1,94 @@
 import Categoria from '../models/m_categoria'
 
 export const getCategorias = async (req, res) => {
+  try{
     const categorias = await Categoria.find();
-    res.json(categorias)
+    return res.json(
+      {status: 200,
+       message: "Se ha obtenido las categorias",
+       data: categorias}
+     );
+  } catch (error) {
+    return res.json(
+      {status: 500,
+      message: "Se ha producido un ERROR al obtener las categorias",
+      }
+      );
+  }
 }
 export const getCategoriaById = async (req, res) => {
+  try{
     const categoria = await Categoria.findById(req.params);
-    res.json(categoria)
+    return res.json(
+      {status: 200,
+       message: "Se ha obtenido la categoria",
+       data: categoria}
+     );
+  } catch (error) {
+    return res.json(
+      {status: 500,
+      message: "Se ha producido un ERROR al obtener la categoria",
+      }
+      );
+  }
 }
 export const createCategoria = async (req, res) => {
-    try {
-        const {
-          codigo,
-          descripcion
-        } = req.body;
-        const newCategoria = new Categoria({
-          codigo,
-          descripcion
-        })
-        const categoriaSaved = await newCategoria.save()
+  try {
+      const {
+        codigo,
+        descripcion
+      } = req.body;
+      const newCategoria = new Categoria({
+        codigo,
+        descripcion
+      })
+      const categoriaSaved = await newCategoria.save()
 
-        return res.json({
-            status: 201,
-            categoriaSaved,
-            message: "Se ha creado la nueva categoria",
-        });
-    } catch (error) {
-        return res.json({
-            status: 500,
-            message: "Se ha generado un error al momento de crear una categoria",
-        });
-    }
-
+      return res.json({
+          status: 201,
+          categoriaSaved,
+          message: "Se ha creado la nueva categoria",
+      });
+  } catch (error) {
+      return res.json({
+          status: 500,
+          message: "Se ha generado un error al momento de crear una categoria",
+      });
+  }
 }
-
 export const updateCategoriaById= async (req, res) => {
-    try {
-            const {
-              codigo,
-              descripcion
-            } = req.body;
-        
-            const { _id } = req.params;
-        
-            const Categoria_upd = await Categoria.findOneAndUpdate(
-              { _id },
-              {
-                codigo,
-                descripcion
-              }
-            );
-            if (!Categoria_upd) {
-              return res.json({
-                status: 404,
-                message: "No se encontró la categoría que se quiere editar",
-              });
-            }
-        
-            const updated_categoria = await Categoria.findOne({ _id });
-        
-            return res.json({
-              status: 200,
-              message: "Se ha actualizado el pedido",
-              data: updated_categoria,
-            });
-          } catch (error) {
-            console.log(error);
-            return res.json({
-              status: 500,
-              message: "Ha aparecido un ERROR al momento de actualizar la categoría",
-              
-            });
-          }
-         
-
+  try {
+    const {
+      codigo,
+      descripcion
+    } = req.body;
+    const { _id } = req.params;
+    const Categoria_upd = await Categoria.findOneAndUpdate(
+      { _id },
+      {
+        codigo,
+        descripcion
+      });
+    if (!Categoria_upd) {
+      return res.json({
+        status: 404,
+          message: "No se encontró la categoría que se quiere editar",
+        });
+      }
+    const updated_categoria = await Categoria.findOne({ _id });
+    return res.json({
+      status: 200,
+      message: "Se ha actualizado el pedido",
+      data: updated_categoria,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.json({
+      status: 500,
+      message: "Ha aparecido un ERROR al momento de actualizar la categoría",
+    });
+  }
 }
-
 export const deleteCategoriaById= async (req, res) => {
   try {
     const { _id } = req.params;
