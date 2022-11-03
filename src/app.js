@@ -8,7 +8,13 @@ import categoriaRoutes from './routes/categoria'
 import auhtRoutes from './routes/auth'
 import usersRoutes from './routes/user'
 
-const app = express();
+const cors = require('cors')
+let corsOptions = {
+    origin: 'trustedwebsite.com' // Compliant
+  };
+let app = express();
+app.disable("x-powered-by");
+app.use(cors(corsOptions))
 createRoles();
 app.use(morgan("dev"));
 app.use(express.json());

@@ -47,9 +47,7 @@ export const getUsers = async (req, res) => {
       message: "Se ha producido un ERROR al obtener los usuarios",
       }
       );
-  }
-
-  
+  }  
 };
 
 export const getUser = async (req, res) => {
@@ -133,7 +131,7 @@ export const deleteUserById= async (req, res) => {
     console.log(error);
     return res.json({
       status: 500,
-      message: "Hubo un error al momento de elimianr un usuario",
+      message: "Hubo un error al momento de eliminar un usuario",
     });
   }
 

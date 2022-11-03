@@ -40,13 +40,12 @@ export const isAdmin= async (req, res,next) => {
     const user=await User.findById(req.userId);
     console.log(user.roles)
     const roles= await Role.find({_id: { $in: user.roles} });
-    console.log(roles.name)
-    for (let i=0; i<roles.length; i++){
-    if(roles[i].name === "admin"){
+    
+    if(roles[0].name === "admin"){
           next();
           return;
       }
-    }
+    
    return res.status(403).json({message:"Requiere Rol Admin"});
   };
 
