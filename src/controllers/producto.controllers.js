@@ -15,6 +15,7 @@ export const createProducto = async (req, res) => {
             nombre,
             stock,
             costo,
+            nomCategoria,
             descripcion,
             precio,
         } = req.body;
@@ -23,6 +24,7 @@ export const createProducto = async (req, res) => {
             nombre,
             stock,
             costo,
+            nomCategoria,
             descripcion,
             precio,
         })
@@ -49,6 +51,7 @@ export const updateProductById= async (req, res) => {
               nombre,
               stock,
               costo,
+              nomCategoria,
               descripcion,
               precio,
               
@@ -63,6 +66,7 @@ export const updateProductById= async (req, res) => {
               nombre,
               stock,
               costo,
+              nomCategoria,
               descripcion,
               precio,
               }

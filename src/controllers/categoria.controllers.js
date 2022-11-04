@@ -21,13 +21,41 @@ export const getCategoriaById = async (req, res) => {
     const categoria = await Categoria.findById(req.params);
     return res.json(
       {status: 200,
-       message: "Se ha obtenido la categoria",
+       message: "Se ha obtenido las categorias por id",
        data: categoria}
      );
   } catch (error) {
     return res.json(
       {status: 500,
-      message: "Se ha producido un ERROR al obtener la categoria",
+      message: "Se ha producido un ERROR al obtener la categoria por id",
+      }
+      );
+  }
+}
+export const getCategoriaByName = async (req, res) => {
+  try{
+    console.log("here")
+    var name = req.params._name;
+    console.log(name);
+    /*const categoria= await Categoria.findOne({descripcion: new RegExp('^'+name+'$', "i")}, function(err, doc) {
+      console.log(doc)
+    });*/
+    const categoria= await Categoria.find({ "descripcion": { "$regex": name, "$options": "i" } });
+    /*const categoria= await Categoria.find({descripcion:{
+      $regex: new RegExp(descripcion, name)
+      }
+    });*/
+    console.log(categoria)
+    //const categoria = await Categoria.findById(req.params);
+    return res.json(
+      {status: 200,
+       message: "Se ha obtenido las categorias por nombre",
+       data: categoria}
+     );
+  } catch (error) {
+    return res.json(
+      {status: 500,
+      message: "Se ha producido un ERROR al obtener la categoria por nombre",
       }
       );
   }
@@ -36,11 +64,11 @@ export const createCategoria = async (req, res) => {
   try {
       const {
         codigo,
-        descripcion
+        nombre
       } = req.body;
       const newCategoria = new Categoria({
         codigo,
-        descripcion
+        nombre
       })
       const categoriaSaved = await newCategoria.save()
 
@@ -60,14 +88,14 @@ export const updateCategoriaById= async (req, res) => {
   try {
     const {
       codigo,
-      descripcion
+      nombre
     } = req.body;
     const { _id } = req.params;
     const Categoria_upd = await Categoria.findOneAndUpdate(
       { _id },
       {
         codigo,
-        descripcion
+        nombre
       });
     if (!Categoria_upd) {
       return res.json({

@@ -2,7 +2,7 @@ import { Schema,model } from 'mongoose';
 
 const categoria = new Schema({
     codigo: Number,
-    descripcion: String
+    nombre: String
 }, { collection: 'categoria' });
 
 // El esquema ayuda a decirle a mongo db como van a lucir los datos

@@ -8,7 +8,8 @@ import {authJwt} from '../middlewares'
 
 // Definimos las rutas::
 router.get('/read', categoriasCtrl.getCategorias);
-router.get('/read/:_id', categoriasCtrl.getCategoriaById);
+//router.get('/read/:_id', categoriasCtrl.getCategoriaById);
+router.get('/read/:_name', categoriasCtrl.getCategoriaByName);
 router.post('/create',[authJwt.verifyToken,authJwt.isJefeAlmacen], categoriasCtrl.createCategoria);
 router.put('/update/:_id',[authJwt.verifyToken,authJwt.isJefeAlmacen], categoriasCtrl.updateCategoriaById);
 router.delete('/delete/:_id',[authJwt.verifyToken,authJwt.isJefeAlmacen], categoriasCtrl.deleteCategoriaById);
