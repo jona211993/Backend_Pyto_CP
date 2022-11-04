@@ -34,19 +34,8 @@ export const getCategoriaById = async (req, res) => {
 }
 export const getCategoriaByName = async (req, res) => {
   try{
-    console.log("here")
-    var name = req.params._name;
-    console.log(name);
-    /*const categoria= await Categoria.findOne({descripcion: new RegExp('^'+name+'$', "i")}, function(err, doc) {
-      console.log(doc)
-    });*/
-    const categoria= await Categoria.find({ "descripcion": { "$regex": name, "$options": "i" } });
-    /*const categoria= await Categoria.find({descripcion:{
-      $regex: new RegExp(descripcion, name)
-      }
-    });*/
-    console.log(categoria)
-    //const categoria = await Categoria.findById(req.params);
+    var name=req.params._name
+    const categoria= await Categoria.find({ nombre: name });
     return res.json(
       {status: 200,
        message: "Se ha obtenido las categorias por nombre",
