@@ -7,5 +7,5 @@ router.get('/', productosCtrl.getProductos);
 router.get('/:_id', productosCtrl.getProductoById);
 router.post('/',[authJwt.verifyToken,authJwt.isJefeAlmacen], productosCtrl.createProducto);
 router.put('/:_id',[authJwt.verifyToken,authJwt.isJefeAlmacen], productosCtrl.updateProductById);
-router.delete('/:_id',[authJwt.verifyToken,authJwt.isAdmin], productosCtrl.deleteProductById);
+router.delete('/:_id',[authJwt.verifyToken,authJwt.isJefeAlmacen], productosCtrl.deleteProductById);
 module.exports= router;
