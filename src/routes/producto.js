@@ -9,5 +9,7 @@ router.get('/read/:codigo', productosCtrl.getProductoByCode);
 //router.get('/:_id', productosCtrl.getProductoById);
 router.post('/',[authJwt.verifyToken,authJwt.isJefeAlmacen], productosCtrl.createProducto);
 router.put('/:_id',[authJwt.verifyToken,authJwt.isJefeAlmacen], productosCtrl.updateProductById);
+router.put("/inhabilitar/:_id", [authJwt.verifyToken,authJwt.isJefeAlmacen], productosCtrl.updateProductInhabilitar);
+router.put("/habilitar/:_id", [authJwt.verifyToken,authJwt.isJefeAlmacen], productosCtrl.updateProductHabilitar);
 //router.delete('/:_id',[authJwt.verifyToken,authJwt.isJefeAlmacen], productosCtrl.deleteProductById);
 module.exports= router;

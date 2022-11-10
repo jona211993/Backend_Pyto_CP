@@ -100,7 +100,6 @@ export const updateProductById= async (req, res) => {
               costo,
               nomCategoria,
               descripcion,
-              estado,
               precio,
               
             } = req.body;
@@ -110,13 +109,12 @@ export const updateProductById= async (req, res) => {
             const Producto_upd = await Producto.findOneAndUpdate(
               { _id },
               {
-                 codigo,
+              codigo,
               nombre,
               stock,
               costo,
               nomCategoria,
               descripcion,
-              estado,
               precio,
               }
             );
@@ -146,3 +144,72 @@ export const updateProductById= async (req, res) => {
 
 }
 
+/* el codigo aqui permite dar de baja a un producto*/
+export const updateProductInhabilitar= async (req, res) => {
+  try {
+                 
+          const { _id } = req.params;
+           const Product_upd = await Producto.findOneAndUpdate(
+            { _id },
+            {              
+              estado:"inhabilitado"
+            } 
+          );
+
+          if (!Product_upd) {
+            return res.json({
+              status: 404,
+              message: "No se encontró al producto que se quiere dar de baja",
+            });
+          }      
+          const updated_product = await Producto.findOne({ _id });      
+          return res.json({
+            status: 200,
+            message: "Se ha inhabilitado el producto",
+            data: updated_product,
+          });
+        } catch (error) {
+          console.log(error);
+          return res.json({
+            status: 500,
+            message: "Ha aparecido un ERROR al momento de dar de baja a un producto",            
+          });
+        }
+       
+
+}
+
+/* el codigo aqui permite dar de Alta a un Producto*/
+export const updateProductHabilitar= async (req, res) => {
+  try {
+                 
+          const { _id } = req.params;
+           const Product_upd = await Producto.findOneAndUpdate(
+            { _id },
+            {              
+              estado:"habilitado"
+            } 
+          );
+
+          if (!Product_upd) {
+            return res.json({
+              status: 404,
+              message: "No se encontró al producto que se quiere dar de alta",
+            });
+          }      
+          const updated_product = await Producto.findOne({ _id });      
+          return res.json({
+            status: 200,
+            message: "Se ha Habilitado el producto",
+            data: updated_product,
+          });
+        } catch (error) {
+          console.log(error);
+          return res.json({
+            status: 500,
+            message: "Ha aparecido un ERROR al momento de dar de alta a un producto",            
+          });
+        }
+       
+
+}
