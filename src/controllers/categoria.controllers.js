@@ -86,7 +86,8 @@ export const createCategoria = async (req, res) => {
   try {
       const {
         codigo,
-        nombre
+        nombre,
+        estado
       } = req.body;
       const newCategoria = new Categoria({
         codigo,

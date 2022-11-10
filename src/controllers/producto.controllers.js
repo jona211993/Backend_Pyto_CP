@@ -17,6 +17,7 @@ export const createProducto = async (req, res) => {
             costo,
             nomCategoria,
             descripcion,
+            estado,
             precio,
         } = req.body;
         const newProducto = new Producto({
@@ -26,6 +27,7 @@ export const createProducto = async (req, res) => {
             costo,
             nomCategoria,
             descripcion,
+            estado,
             precio,
         })
         const productoSaved = await newProducto.save()
@@ -53,6 +55,7 @@ export const updateProductById= async (req, res) => {
               costo,
               nomCategoria,
               descripcion,
+              estado,
               precio,
               
             } = req.body;
@@ -68,6 +71,7 @@ export const updateProductById= async (req, res) => {
               costo,
               nomCategoria,
               descripcion,
+              estado,
               precio,
               }
             );
