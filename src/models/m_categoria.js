@@ -2,6 +2,7 @@ import { Schema,model } from 'mongoose';
 
 const categoria = new Schema({
     codigo: Number,
+    estado:String,
     nombre: String
 }, { collection: 'categoria' });
 

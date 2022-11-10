@@ -1,12 +1,13 @@
 import { Schema,model } from 'mongoose';
 
 const producto = new Schema({
-    codigo: Number,
+    codigo: String,
     nombre: String,
     stock:Number,
     costo: Number,
     nomCategoria : String,
     descripcion:String,
+    estado:String,
     precio:Number,
     
   // esto ultimo que coloco es para que identifique a la coleccion en la

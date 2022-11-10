@@ -53,11 +53,13 @@ export const createCategoria = async (req, res) => {
   try {
       const {
         codigo,
-        nombre
+        nombre,
+        estado
       } = req.body;
       const newCategoria = new Categoria({
         codigo,
-        nombre
+        nombre,
+        estado
       })
       const categoriaSaved = await newCategoria.save()
 
@@ -77,14 +79,16 @@ export const updateCategoriaById= async (req, res) => {
   try {
     const {
       codigo,
-      nombre
+      nombre,
+      estado
     } = req.body;
     const { _id } = req.params;
     const Categoria_upd = await Categoria.findOneAndUpdate(
       { _id },
       {
         codigo,
-        nombre
+        nombre,
+        estado
       });
     if (!Categoria_upd) {
       return res.json({
