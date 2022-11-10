@@ -13,6 +13,6 @@ router.get('/read/:codigo', categoriasCtrl.getCategoriaByCode);
 router.get('/read/byname/:_name', categoriasCtrl.getCategoriaByName);
 router.post('/create',[authJwt.verifyToken,authJwt.isJefeAlmacen], categoriasCtrl.createCategoria);
 router.put('/update/:_id',[authJwt.verifyToken,authJwt.isJefeAlmacen], categoriasCtrl.updateCategoriaById);
-// router.delete('/delete/:_id',[authJwt.verifyToken,authJwt.isJefeAlmacen], categoriasCtrl.deleteCategoriaById);
+
 
 module.exports= router;

@@ -10,5 +10,5 @@ router.get('/inhabilitados',[verifyToken, isAdmin], userCtrl.getUsersInhabiltado
 router.get('/read/:dni',[verifyToken, isAdmin], userCtrl.getUserDni);
 router.post("/create", [verifyToken, isAdmin, checkExistingUser], userCtrl.createUser);
 router.put("/update/:_id", [verifyToken, isAdmin], userCtrl.updateUserById);
-//router.delete("/delete/:_id", [verifyToken, isAdmin], userCtrl.deleteUserById);
+
 export default router;

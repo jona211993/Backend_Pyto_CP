@@ -153,20 +153,3 @@ export const updateUserById= async (req, res) => {
 
 }
 
-// export const deleteUserById= async (req, res) => {
-//   try {
-//     const { _id } = req.params;
-//     await User.findByIdAndDelete(_id);
-//     return res.json({
-//       status: 200,
-//       message: "Se ha eliminado al usuario",
-//     });
-//   } catch (error) {
-//     console.log(error);
-//     return res.json({
-//       status: 500,
-//       message: "Hubo un error al momento de eliminar un usuario",
-//     });
-//   }
-
-// }

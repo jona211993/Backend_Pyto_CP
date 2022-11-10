@@ -63,7 +63,7 @@ export const getCategoriaByCode = async (req, res) => {
  poder mostrar las categorias  en el checkbox*/
 export const getCategoriaByName = async (req, res) => {
   try{
-    var name=req.params._name
+    const name=req.params._name
     let categoria= await Categoria.find({ nombre: name });
     return res.json(
       {status: 200,
@@ -87,8 +87,7 @@ export const createCategoria = async (req, res) => {
       const {
         codigo,
         nombre,
-        estado
-      } = req.body;
+        } = req.body;
       const newCategoria = new Categoria({
         codigo,
         nombre,
@@ -147,20 +146,3 @@ export const updateCategoriaById= async (req, res) => {
     });
   }
 }
-// export const deleteCategoriaById= async (req, res) => {
-//   try {
-//     const { _id } = req.params;
-//     await Categoria.findByIdAndDelete(_id);
-//     return res.json({
-//       status: 200,
-//       message: "Se ha eliminado la categoría",
-//     });
-//   } catch (error) {
-//     console.log(error);
-//     return res.json({
-//       status: 500,
-//       message: "Hubo un error al momento de eliminar la categoría",
-//     });
-//   }
-
-// }
