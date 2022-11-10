@@ -10,7 +10,7 @@ import usersRoutes from './routes/user'
 
 const cors = require('cors')
 let corsOptions = {
-    origin: 'trustedwebsite.com' // Compliant
+    origin: '*' // Compliant
   };
 let app = express();
 app.disable("x-powered-by");
