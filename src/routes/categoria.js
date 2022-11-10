@@ -12,7 +12,8 @@ router.get('/inhabilitados', categoriasCtrl.getCategoriasInhabilitadas);
 router.get('/read/:codigo', categoriasCtrl.getCategoriaByCode);
 router.get('/read/byname/:_name', categoriasCtrl.getCategoriaByName);
 router.post('/create',[authJwt.verifyToken,authJwt.isJefeAlmacen], categoriasCtrl.createCategoria);
-router.put('/update/:_id',[authJwt.verifyToken,authJwt.isJefeAlmacen], categoriasCtrl.updateCategoriaById);
+router.put('/inhabilitar/:_id',[authJwt.verifyToken,authJwt.isJefeAlmacen], categoriasCtrl.updateCategoriaInhabilitar);
+router.put('/habilitar/:_id',[authJwt.verifyToken,authJwt.isJefeAlmacen], categoriasCtrl.updateCategoriaHabilitar);
 
 
 module.exports= router;

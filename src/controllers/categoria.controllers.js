@@ -111,38 +111,67 @@ export const createCategoria = async (req, res) => {
 // 04/11/22
 /* el codigo aqui es usado para modificar el ESTADO DE LA CATEGORIA
 no se modifica otro campo*/
-export const updateCategoriaById= async (req, res) => {
+/* el codigo aqui permite dar de baja a una categoria*/
+export const updateCategoriaInhabilitar= async (req, res) => {
   try {
-    const {
-      codigo,
-      nombre,
-      estado
-    } = req.body;
     const { _id } = req.params;
     const Categoria_upd = await Categoria.findOneAndUpdate(
       { _id },
       {
-        codigo,
-        nombre,
-        estado
+       estado:"inhabilitado"
       });
     if (!Categoria_upd) {
       return res.json({
         status: 404,
-          message: "No se encontró la categoría que se quiere editar",
+          message: "No se encontró la categoría que se quiere dar de baja",
         });
       }
     const updated_categoria = await Categoria.findOne({ _id });
     return res.json({
       status: 200,
-      message: "Se ha actualizado el pedido",
+      message: "Se ha dado de baja a la categoría",
       data: updated_categoria,
     });
   } catch (error) {
     console.log(error);
     return res.json({
       status: 500,
-      message: "Ha aparecido un ERROR al momento de actualizar la categoría",
+      message: "Ha aparecido un ERROR al momento de dar de baja a la categoría",
     });
   }
+}
+
+/* el codigo aqui permite dar de Alta a una categoria*/
+export const updateCategoriaHabilitar= async (req, res) => {
+  try {
+                 
+          const { _id } = req.params;
+           const Categoria_upd = await Categoria.findOneAndUpdate(
+            { _id },
+            {              
+              estado:"habilitado"
+            } 
+          );
+
+          if (!Categoria_upd) {
+            return res.json({
+              status: 404,
+              message: "No se encontró a la categoria que se quiere dar de alta",
+            });
+          }      
+          const updated_categoria = await Categoria.findOne({ _id });      
+          return res.json({
+            status: 200,
+            message: "Se ha Habilitado la categoria",
+            data: updated_categoria,
+          });
+        } catch (error) {
+          console.log(error);
+          return res.json({
+            status: 500,
+            message: "Ha aparecido un ERROR al momento de dar de alta a una categoria",            
+          });
+        }
+       
+
 }

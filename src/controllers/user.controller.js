@@ -107,10 +107,10 @@ export const getUserDni = async (req, res) => {
   
   
 };
-/* el codigo aqui permite dar de baja aun usuario*/
+/* el codigo aqui permite editar un usuario*/
 export const updateUserById= async (req, res) => {
   try {
-          const { username, email,dni,passwordNE,roles, estado} = req.body;
+          const { username, email,dni,passwordNE,roles} = req.body;
           const rolesFound = await Role.find({ name: { $in: roles } });
          
           const { _id } = req.params;
@@ -125,7 +125,7 @@ export const updateUserById= async (req, res) => {
               email,
               password,
               roles:rolesFound.map((role) => role._id),
-              estado
+              
             } 
           );
 
@@ -152,4 +152,72 @@ export const updateUserById= async (req, res) => {
        
 
 }
+/* el codigo aqui permite dar de baja a un usuario*/
+export const updateUserInhabilitar= async (req, res) => {
+  try {
+                 
+          const { _id } = req.params;
+           const User_upd = await User.findOneAndUpdate(
+            { _id },
+            {              
+              estado:"inhabilitado"
+            } 
+          );
 
+          if (!User_upd) {
+            return res.json({
+              status: 404,
+              message: "No se encontró al usuario que se quiere dar de baja",
+            });
+          }      
+          const updated_user = await User.findOne({ _id });      
+          return res.json({
+            status: 200,
+            message: "Se ha inhabilitado el usuario",
+            data: updated_user,
+          });
+        } catch (error) {
+          console.log(error);
+          return res.json({
+            status: 500,
+            message: "Ha aparecido un ERROR al momento de dar de baja a un user",            
+          });
+        }
+       
+
+}
+
+/* el codigo aqui permite dar de Alta a un usuario*/
+export const updateUserHabilitar= async (req, res) => {
+  try {
+                 
+          const { _id } = req.params;
+           const User_upd = await User.findOneAndUpdate(
+            { _id },
+            {              
+              estado:"habilitado"
+            } 
+          );
+
+          if (!User_upd) {
+            return res.json({
+              status: 404,
+              message: "No se encontró al usuario que se quiere dar de alta",
+            });
+          }      
+          const updated_user = await User.findOne({ _id });      
+          return res.json({
+            status: 200,
+            message: "Se ha Habilitado el usuario",
+            data: updated_user,
+          });
+        } catch (error) {
+          console.log(error);
+          return res.json({
+            status: 500,
+            message: "Ha aparecido un ERROR al momento de dar de alta a un user",            
+          });
+        }
+       
+
+}
