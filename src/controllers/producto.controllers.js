@@ -146,20 +146,3 @@ export const updateProductById= async (req, res) => {
 
 }
 
-export const deleteProductById= async (req, res) => {
-  try {
-    const { _id } = req.params;
-    await Producto.findByIdAndDelete(_id);
-    return res.json({
-      status: 200,
-      message: "Se ha eliminado al postulante",
-    });
-  } catch (error) {
-    console.log(error);
-    return res.json({
-      status: 500,
-      message: "Hubo un error al momento de elimianr un postulante",
-    });
-  }
-
-}
