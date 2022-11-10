@@ -42,7 +42,7 @@ export const createUser = async (req, res) => {
       message: "Se ha producido un ERROR al Crear el usuario",
       }
       );
-    console.error(error);
+    
   }
 };
 /* el codigo aqui es permite listar
