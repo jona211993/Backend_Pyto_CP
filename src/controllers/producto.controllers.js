@@ -62,7 +62,6 @@ export const createProducto = async (req, res) => {
             costo,
             nomCategoria,
             descripcion,
-            estado,
             precio,
         } = req.body;
         const newProducto = new Producto({
