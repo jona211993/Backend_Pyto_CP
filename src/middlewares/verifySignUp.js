@@ -12,6 +12,10 @@ export const checkExistingUser = async (req, res, next) => {
     const email = await User.findOne({ email: req.body.email });
     if (email)
       return res.status(400).json({ message: "el email ya existe" });
+    
+    const dni = await User.findOne({ dni: req.body.dni });
+      if (dni)
+        return res.status(400).json({ message: "Ya existe un usuario con ese DNI" });
 
     next();
   } catch (error) {

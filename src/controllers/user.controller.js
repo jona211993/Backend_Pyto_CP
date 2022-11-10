@@ -1,18 +1,24 @@
 import User from "../models/m_user";
 import Role from "../models/m_role";
 
+// Autor: Jonatan Pacora Vega
+// 17/10/22
+/* el codigo aqui es usado para el
+ CUS registrar a un usuario*/
 export const createUser = async (req, res) => {
   try {
-    const { username, email, password, roles } = req.body;
+    const { username, email, password, roles,dni} = req.body;
 
     const rolesFound = await Role.find({ name: { $in: roles } });
 
     // creating a new User
     const user = new User({
       username,
+      dni,
       email,
       password,
       roles: rolesFound.map((role) => role._id),
+      estado:'habilitado'
     });
 
     // encrypting password
@@ -25,20 +31,28 @@ export const createUser = async (req, res) => {
         status: 200,
       _id: savedUser._id,
       username: savedUser.username,
+      dni: savedUser.dni,
       email: savedUser.email,
       roles: savedUser.roles,
+      estado: savedUser.estado,
     });
   } catch (error) {
+    return res.json(
+      {status: 500,
+      message: "Se ha producido un ERROR al Crear el usuario",
+      }
+      );
     console.error(error);
   }
 };
-
+/* el codigo aqui es permite listar
+ los usuarios  habilitadas*/
 export const getUsers = async (req, res) => {
   try {
-    const users = await User.find();
+     const users = await User.find({estado: "habilitado"});
      return res.json(
        {status: 200,
-        message: "Se ha obtenido los usuarios",
+        message: "Se ha obtenido los usuarios habilitados",
         data: users}
       );
   } catch (error) {
@@ -49,11 +63,34 @@ export const getUsers = async (req, res) => {
       );
   }  
 };
-
-export const getUser = async (req, res) => {
+// Autor: Jonatan Pacora Vega
+// 18/10/22
+/* el codigo aqui permite listar
+ los usuarios inhabilitados*/
+export const getUsersInhabiltados = async (req, res) => {
   try {
-    const { _id } = req.params;
-  const user = await User.findById(_id);
+     const users = await User.find({estado: "inhabilitado"});
+     return res.json(
+       {status: 200,
+        message: "Se ha obtenido los usuarios inhabilitados",
+        data: users}
+      );
+  } catch (error) {
+    return res.json(
+      {status: 500,
+      message: "Se ha producido un ERROR al obtener los usuarios I",
+      }
+      );
+  }  
+};
+// Autor: Jonatan Pacora Vega
+// 19/10/22
+/* el codigo aqui permite Buscar
+  a un usuario por su dni*/
+export const getUserDni = async (req, res) => {
+  try {
+  const {dni} = req.params;
+  const user = await User.findOne({dni:dni});
   return res.json(
     {status: 200,
     message: "Se ha obtenido el usuario",
@@ -70,11 +107,10 @@ export const getUser = async (req, res) => {
   
   
 };
-
-//___________________________________
+/* el codigo aqui permite dar de baja aun usuario*/
 export const updateUserById= async (req, res) => {
   try {
-          const { username, email,passwordNE,roles} = req.body;
+          const { username, email,dni,passwordNE,roles, estado} = req.body;
           const rolesFound = await Role.find({ name: { $in: roles } });
          
           const { _id } = req.params;
@@ -85,23 +121,21 @@ export const updateUserById= async (req, res) => {
             { _id },
             {
               username,
+              dni,
               email,
               password,
               roles:rolesFound.map((role) => role._id),
+              estado
             } 
           );
-
 
           if (!User_upd) {
             return res.json({
               status: 404,
               message: "No se encontró al usuario que se quiere editar",
             });
-          }
-      
-          const updated_user = await User.findOne({ _id });
-         
-      
+          }      
+          const updated_user = await User.findOne({ _id });      
           return res.json({
             status: 200,
             message: "Se ha actualizado el usuario",
@@ -119,20 +153,20 @@ export const updateUserById= async (req, res) => {
 
 }
 
-export const deleteUserById= async (req, res) => {
-  try {
-    const { _id } = req.params;
-    await User.findByIdAndDelete(_id);
-    return res.json({
-      status: 200,
-      message: "Se ha eliminado al usuario",
-    });
-  } catch (error) {
-    console.log(error);
-    return res.json({
-      status: 500,
-      message: "Hubo un error al momento de eliminar un usuario",
-    });
-  }
+// export const deleteUserById= async (req, res) => {
+//   try {
+//     const { _id } = req.params;
+//     await User.findByIdAndDelete(_id);
+//     return res.json({
+//       status: 200,
+//       message: "Se ha eliminado al usuario",
+//     });
+//   } catch (error) {
+//     console.log(error);
+//     return res.json({
+//       status: 500,
+//       message: "Hubo un error al momento de eliminar un usuario",
+//     });
+//   }
 
-}
+// }

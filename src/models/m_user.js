@@ -6,18 +6,27 @@ const userSchema = new Schema(
     username:{
         type:String,
         unique:true
-    }, 
+    },
+    dni:{
+        type: Number,
+        unique:true
+    },  
     email:{
         type:String,
         unique:true
     },
     password:{
-        type:String,
-        unique:true
+        type:String
+       
     },
     roles:{
         ref : "Role",
         type: Schema.Types.ObjectId
+    },
+    estado:{
+        type:String
+        
+       
     }
 },
   // esto ultimo que coloco es para que identifique a la coleccion en la
