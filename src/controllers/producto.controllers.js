@@ -1,8 +1,53 @@
 import Producto from '../models/m_producto'
 
 export const getProductos = async (req, res) => {
-    const products = await Producto.find();
-    res.json(products)
+    try{
+      const products = await Producto.find({estado:"habilitado"});
+      return res.json(
+        {status: 200,
+         message: "Se ha obtenido los productos habilitados",
+         data: products}
+       );
+    } catch (error) {
+      return res.json(
+        {status: 500,
+        message: "Se ha producido un ERROR al obtener los productos",
+        }
+        );
+    }
+}
+export const getProductosInhabilitados = async (req, res) => {
+  try{
+    const productos = await Producto.find({estado:"inhabilitado"});
+    return res.json(
+      {status: 200,
+       message: "Se ha obtenido los productos inhabilitados",
+       data: productos}
+     );
+  } catch (error) {
+    return res.json(
+      {status: 500,
+      message: "Se ha producido un ERROR al obtener las productos inhabilitados",
+      }
+      );
+  }
+}
+export const getProductoByCode = async (req, res) => {
+  try{
+    const {codigo} = req.params;
+    let productos = await Producto.findOne({codigo:codigo});
+    return res.json(
+      {status: 200,
+       message: "Se ha obtenido las productos por codigo",
+       data: productos}
+     );
+  } catch (error) {
+    return res.json(
+      {status: 500,
+      message: "Se ha producido un ERROR al obtener los productos por codigo",
+      }
+      );
+  }
 }
 export const getProductoById = async (req, res) => {
     const product = await Producto.findById(req.params);
@@ -27,7 +72,7 @@ export const createProducto = async (req, res) => {
             costo,
             nomCategoria,
             descripcion,
-            estado,
+            estado:"habilitado",
             precio,
         })
         const productoSaved = await newProducto.save()
