@@ -1,5 +1,9 @@
 import Producto from '../models/m_producto'
 
+// Autor: Anderson Salazar
+// 27/10/22
+/* el codigo aqui es usado para obtenera a los productos habilitados*/
+
 export const getProductos = async (req, res) => {
     try{
       const products = await Producto.find({estado:"habilitado"});
@@ -16,6 +20,7 @@ export const getProductos = async (req, res) => {
         );
     }
 }
+/* el codigo aqui es usado para obtenera a los productos inhabilitados*/
 export const getProductosInhabilitados = async (req, res) => {
   try{
     const productos = await Producto.find({estado:"inhabilitado"});
@@ -32,6 +37,7 @@ export const getProductosInhabilitados = async (req, res) => {
       );
   }
 }
+/* el codigo aqui es usado para obtener un producto por su codigo*/
 export const getProductoByCode = async (req, res) => {
   try{
     const {codigo} = req.params;
@@ -49,10 +55,16 @@ export const getProductoByCode = async (req, res) => {
       );
   }
 }
+/* el codigo aqui es usado para obtener un producto por su id*/
 export const getProductoById = async (req, res) => {
     const product = await Producto.findById(req.params);
     res.json(product)
 }
+
+// Autor: Anderson Salazar
+// 27/10/22
+/* el codigo aqui es usado para el
+ CUS registrar a un producto*/
 export const createProducto = async (req, res) => {
     try {
         const {

@@ -5,6 +5,9 @@ import config from "../config";
 import User from '../models/m_user'
 import Role from '../models/m_role'
 
+// Jonatan Pacora Vega
+// 17/10/22
+// Esta funcion es para verificacion del token de sesion
 export const verifyToken= async (req, res,next) => {
     try {
         const token = req.headers["x-access-token"];
@@ -23,7 +26,7 @@ export const verifyToken= async (req, res,next) => {
     }
    
 };
-
+// Esta funcion es para verificacion de que el usuario logueado es un Jefe de Almacen
 export const isJefeAlmacen= async (req, res,next) => {
   const user=await User.findById(req.userId);
   const roles= await Role.find({_id: { $in: user.roles} });
@@ -35,7 +38,7 @@ export const isJefeAlmacen= async (req, res,next) => {
   
  return res.status(403).json({message:"Requiere Rol Jefe Almacen"});
 };
-
+// Esta funcion es para verificacion de que el usuario logueado es un Administrador
 export const isAdmin= async (req, res,next) => {
     const user=await User.findById(req.userId);
     console.log(user.roles)
@@ -49,7 +52,7 @@ export const isAdmin= async (req, res,next) => {
    return res.status(403).json({message:"Requiere Rol Admin"});
   };
 
-
+// Esta funcion es para verificacion de que el usuario logueado es un Almacenero
  export const isALmacenero= async (req, res,next) => {
     const user=await User.findById(req.userId);
     const roles= await Role.find({_id: { $in: user.roles} });

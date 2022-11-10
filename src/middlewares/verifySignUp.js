@@ -3,6 +3,10 @@
 import User from "../models/m_user";
 import { ROLES } from "../models/m_role";
 
+//Jonatan Pacora Vega
+// 17/10/22
+// Esta funcion es para verificacion la existencia de un usuario con el mismo username
+// O si el correo ya existe en la base de datos
 export const checkExistingUser = async (req, res, next) => {
   try {
     const userFound = await User.findOne({ username: req.body.username });
@@ -23,6 +27,8 @@ export const checkExistingUser = async (req, res, next) => {
   }
 };
 
+
+// Para verificacion de la existencia del Rol de usuario
 export const checkExistingRole = (req, res, next) => {
   
 

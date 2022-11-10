@@ -1,6 +1,6 @@
-projectKey=Prueba4Sonar_key
+projectKey=Prueba5Sonarkey
 serverUrl=http://localhost:9007
 serverVersion=9.7.0.61563
-dashboardUrl=http://localhost:9007/dashboard?id=Prueba4Sonar_key
-ceTaskId=AYRjvrzipHg6QEmtIfQT
-ceTaskUrl=http://localhost:9007/api/ce/task?id=AYRjvrzipHg6QEmtIfQT
+dashboardUrl=http://localhost:9007/dashboard?id=Prueba5Sonarkey
+ceTaskId=AYRj3h3OpHg6QEmtIfRC
+ceTaskUrl=http://localhost:9007/api/ce/task?id=AYRj3h3OpHg6QEmtIfRC
