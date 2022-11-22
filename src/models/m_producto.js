@@ -4,6 +4,7 @@ const producto = new Schema({
     codigo: String,
     nombre: String,
     stock:Number,
+    stockMinimo:Number,
     costo: Number,
     nomCategoria : String,
     descripcion:String,

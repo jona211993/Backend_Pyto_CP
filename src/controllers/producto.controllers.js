@@ -37,6 +37,23 @@ export const getProductosInhabilitados = async (req, res) => {
       );
   }
 }
+export const getProductoByStockMinimo= async (req, res) => {
+  try{
+    //let productos = await Producto.find( { $where : "this.stockMinimo <= this.stock" } );
+    let productos = await Producto.aggregate({$match:{$expr:{$gt:["$stock", "$stockMinimo"]}}})
+    return res.json(
+      {status: 200,
+       message: "Se ha obtenido las productos por stock minimo",
+       data: productos}
+     );
+  } catch (error) {
+    return res.json(
+      {status: 500,
+      message: "Se ha producido un ERROR al obtener los productos por stock minimo",
+      }
+      );
+  }
+}
 /* el codigo aqui es usado para obtener un producto por su codigo*/
 export const getProductoByCode = async (req, res) => {
   try{
@@ -71,6 +88,7 @@ export const createProducto = async (req, res) => {
             codigo,
             nombre,
             stock,
+            stockMinimo,
             costo,
             nomCategoria,
             descripcion,
@@ -80,6 +98,7 @@ export const createProducto = async (req, res) => {
             codigo,
             nombre,
             stock,
+            stockMinimo,
             costo,
             nomCategoria,
             descripcion,
@@ -108,6 +127,7 @@ export const updateProductById= async (req, res) => {
               codigo,
               nombre,
               stock,
+              stockMinimo,
               costo,
               nomCategoria,
               descripcion,
@@ -123,6 +143,7 @@ export const updateProductById= async (req, res) => {
               codigo,
               nombre,
               stock,
+              stockMinimo,
               costo,
               nomCategoria,
               descripcion,
