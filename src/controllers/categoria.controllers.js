@@ -46,6 +46,12 @@ export const getCategoriaByCode = async (req, res) => {
   try{
     const {codigo} = req.params;
     let categoria = await Categoria.findOne({codigo:codigo});
+    if (!categoria) {
+      return res.json({
+        status: 404,
+        message: "No se encontró a la categoria",
+      });
+    }     
     return res.json(
       {status: 200,
        message: "Se ha obtenido las categorias por codigo",
@@ -65,6 +71,12 @@ export const getCategoriaByName = async (req, res) => {
   try{
     const name=req.params._name
     let categoria= await Categoria.find({ nombre: name });
+    if (!categoria) {
+      return res.json({
+        status: 404,
+        message: "No se encontró a la categoria",
+      });
+    }    
     return res.json(
       {status: 200,
        message: "Se ha obtenido las categorias por nombre",

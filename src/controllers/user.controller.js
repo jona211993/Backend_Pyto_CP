@@ -91,6 +91,12 @@ export const getUserDni = async (req, res) => {
   try {
   const {dni} = req.params;
   const user = await User.findOne({dni:dni});
+  if (!user) {
+    return res.json({
+      status: 404,
+      message: "No se encontró al usuario por dni",
+    });
+  }    
   return res.json(
     {status: 200,
     message: "Se ha obtenido el usuario",

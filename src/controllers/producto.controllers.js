@@ -7,6 +7,12 @@ import Producto from '../models/m_producto'
 export const getProductos = async (req, res) => {
     try{
       const products = await Producto.find({estado:"habilitado"});
+      if (!productos) {
+        return res.json({
+          status: 404,
+          message: "No se encontró a los productos H",
+        });
+      }     
       return res.json(
         {status: 200,
          message: "Se ha obtenido los productos habilitados",
@@ -24,6 +30,12 @@ export const getProductos = async (req, res) => {
 export const getProductosInhabilitados = async (req, res) => {
   try{
     const productos = await Producto.find({estado:"inhabilitado"});
+    if (!productos) {
+      return res.json({
+        status: 404,
+        message: "No se encontró a los productos I",
+      });
+    }     
     return res.json(
       {status: 200,
        message: "Se ha obtenido los productos inhabilitados",
@@ -40,6 +52,12 @@ export const getProductosInhabilitados = async (req, res) => {
 export const getProductoByStockMinimo= async (req, res) => {
   try{
     let productos = await Producto.aggregate([{"$match": {"$expr": {"$gt": ["$stockMinimo", "$stock"]}}},{ $match : { estado : 'habilitado'} }])
+    if (!productos) {
+      return res.json({
+        status: 404,
+        message: "No se encontró los productos SM",
+      });
+    }     
     return res.json(
       {status: 200,
        message: "Se ha obtenido las productos por stock minimo",
@@ -59,6 +77,12 @@ export const getProductoByCode = async (req, res) => {
   try{
     const {codigo} = req.params;
     let productos = await Producto.findOne({codigo:codigo});
+    if (!productos) {
+      return res.json({
+        status: 404,
+        message: "No se encontró al producto",
+      });
+    }      
     return res.json(
       {status: 200,
        message: "Se ha obtenido las productos por codigo",
