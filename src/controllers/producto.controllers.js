@@ -39,7 +39,7 @@ export const getProductosInhabilitados = async (req, res) => {
 }
 export const getProductoByStockMinimo= async (req, res) => {
   try{
-    let productos = await Producto.aggregate([{"$match": {"$expr": {"$gt": ["$stockMinimo", "$stock"]}}}])
+    let productos = await Producto.aggregate([{"$match": {"$expr": {"$gt": ["$stockMinimo", "$stock"]}}},{ $match : { estado : 'habilitado'} }])
     return res.json(
       {status: 200,
        message: "Se ha obtenido las productos por stock minimo",
