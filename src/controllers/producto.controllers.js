@@ -27,6 +27,9 @@ export const getProductos = async (req, res) => {
     }
 }
 /* el codigo aqui es usado para obtenera a los productos inhabilitados*/
+// Autor: Anderson Salazar
+// 24/11/22
+/* Agregamos codigo de status 404 para los errores de no encontrarse los productos*/
 export const getProductosInhabilitados = async (req, res) => {
   try{
     const productos = await Producto.find({estado:"inhabilitado"});
@@ -49,6 +52,9 @@ export const getProductosInhabilitados = async (req, res) => {
       );
   }
 }
+// Autor: Anderson Salazar
+// 24/11/22
+/* Agregamos codigo de status 404 para los errores de no encontrarse los productos*/
 export const getProductoByStockMinimo= async (req, res) => {
   try{
     let productos = await Producto.aggregate([{"$match": {"$expr": {"$gt": ["$stockMinimo", "$stock"]}}},{ $match : { estado : 'habilitado'} }])
@@ -73,6 +79,9 @@ export const getProductoByStockMinimo= async (req, res) => {
   }
 }
 /* el codigo aqui es usado para obtener un producto por su codigo*/
+// Autor: Anderson Salazar
+// 24/11/22
+/* Agregamos codigo de status 404 para los errores de no encontrarse los productos*/
 export const getProductoByCode = async (req, res) => {
   try{
     const {codigo} = req.params;
@@ -106,6 +115,9 @@ export const getProductoById = async (req, res) => {
 // 27/10/22
 /* el codigo aqui es usado para el
  CUS registrar a un producto*/
+ // Autor: Anderson Salazar
+// 24/11/22
+/* Agregamos el campo stock minimo*/
 export const createProducto = async (req, res) => {
     try {
         const {
@@ -201,6 +213,9 @@ export const updateProductById= async (req, res) => {
 }
 
 /* el codigo aqui permite dar de baja a un producto*/
+// Autor: Anderson Salazar
+// 24/11/22
+/* Agregamos codigo de status 404 para los errores de no encontrarse los productos*/
 export const updateProductInhabilitar= async (req, res) => {
   try {
                  
