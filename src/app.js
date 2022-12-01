@@ -7,6 +7,8 @@ import productosRoutes from './routes/producto'
 import categoriaRoutes from './routes/categoria'
 import auhtRoutes from './routes/auth'
 import usersRoutes from './routes/user'
+import movimientoRoutes from './routes/movimiento'
+import itemRoutes from './routes/item'
 
 const cors = require('cors')
 let corsOptions = {
@@ -22,6 +24,8 @@ app.use('/api/productos',productosRoutes)
 app.use('/api/categoria',categoriaRoutes)
 app.use('/api/auth',auhtRoutes)
 app.use('/api/users',usersRoutes)
+app.use('/api/movimiento',movimientoRoutes)
+app.use('/api/item',itemRoutes)
 
 
 export default app;
