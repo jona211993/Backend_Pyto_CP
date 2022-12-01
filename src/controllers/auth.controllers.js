@@ -37,9 +37,9 @@ export const signUp = async (req, res) => {
 }
 
 export const signIn = async (req, res) => {
-    const userFound= await User.findOne({email: req.body.email}).populate("roles");
+    const userFound= await User.findOne({email: req.body.email}).populate("roles");   
 
-
+    if(userFound.estado =="inhabilitado") return res.status(404).json({message:"Usuario no encontrado - i"})
     if(!userFound) return res.status(400).json({message:"Usuario no encontrado"})
 
     const matchPassword= await User.comparePassword(req.body.password, userFound.password)
