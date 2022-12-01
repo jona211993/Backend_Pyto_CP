@@ -6,7 +6,7 @@ import Producto from '../models/m_producto'
 
 export const getProductos = async (req, res) => {
     try{
-      const products = await Producto.find({estado:"habilitado"});
+      const productos = await Producto.find({estado:"habilitado"});
       if (!productos) {
         return res.json({
           status: 404,
@@ -16,7 +16,7 @@ export const getProductos = async (req, res) => {
       return res.json(
         {status: 200,
          message: "Se ha obtenido los productos habilitados",
-         data: products}
+         data: productos}
        );
     } catch (error) {
       return res.json(
