@@ -22,7 +22,7 @@ export const createMovimiento = async (req, res) => {
     if (lista_items) {
       // un ITEM (los objects del array lista_items) tiene los campos:
       //     codigo_product, name_product,description,categoria,
-      //     stock, precio, cantidad, tipo
+      //     stock, precio, cantidad
       if (tipo == "Salida") {
         lista_items.forEach(async (item) => {
           // Validación de operacion aceptada con el stock
