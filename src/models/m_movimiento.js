@@ -6,6 +6,9 @@ const movimientoSchema = new Schema(
         type:String,  
         unique:true      
     },
+    estado:{
+        type:String,               
+    },
     factura:{
         type: String
      },  
