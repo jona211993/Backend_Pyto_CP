@@ -5,6 +5,7 @@ import {authJwt} from '../middlewares'
 // Definimos las rutas::
 
 router.post('/create',[authJwt.verifyToken,authJwt.isJefeAlmacen], movCtrl.createMovimiento);
-
+router.get('/searchByCode/:codigo',[authJwt.verifyToken,authJwt.isJefeAlmacen], movCtrl.getMovimientoByCode);
+router.put('/anular_mov/:_id',[authJwt.verifyToken,authJwt.isJefeAlmacen], movCtrl.updateAnular);
 
 module.exports= router;
