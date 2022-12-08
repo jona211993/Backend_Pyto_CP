@@ -64,4 +64,14 @@ export const isAdmin= async (req, res,next) => {
     return res.status(403).json({message:"Requiere Rol Almacenero"});
    };
 
+   export const isJefeOrAlmacenero= async (req, res,next) => {
+    const user=await User.findById(req.userId);
+    const roles= await Role.find({_id: { $in: user.roles} });
+  
+      if(roles[0].name === "almacenero" || roles[0].name === "jefe_almacen"){
+          next();
+          return;
+      }
+    return res.status(403).json({message:"Requiere Rol de Jefe o Almacenero "});
+   };
 

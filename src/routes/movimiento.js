@@ -4,9 +4,9 @@ import * as movCtrl from '../controllers/movimiento.controllers';
 import {authJwt} from '../middlewares'
 // Definimos las rutas::
 
-router.post('/create',[authJwt.verifyToken,authJwt.isJefeAlmacen], movCtrl.createMovimiento);
-router.get('/searchByCode/:codigo',[authJwt.verifyToken,authJwt.isJefeAlmacen], movCtrl.getMovimientoByCode);
+router.post('/create',[authJwt.verifyToken,authJwt.isJefeOrAlmacenero], movCtrl.createMovimiento);
+router.get('/searchByCode/:codigo',[authJwt.verifyToken,authJwt.isJefeOrAlmacenero], movCtrl.getMovimientoByCode);
 router.put('/anular_mov/:_id',[authJwt.verifyToken,authJwt.isJefeAlmacen], movCtrl.updateAnular);
-router.get('/aprobados',[authJwt.verifyToken,authJwt.isJefeAlmacen], movCtrl.getMovimientosAprobados);
+router.get('/aprobados',[authJwt.verifyToken,authJwt.isJefeOrAlmacenero], movCtrl.getMovimientosAprobados);
 
 module.exports= router;
