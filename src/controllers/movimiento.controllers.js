@@ -288,3 +288,30 @@ export const updateAnular = async (req, res) => {
     });
   }
 };
+
+// Autor: Jonatan Pacora
+// 6/12/22
+/* Codigo permite Obtener los movimientos aprobados*/
+
+export const getMovimientosAprobados = async (req, res) => {
+  try{
+    const movimientos = await Movimiento.find({estado:"Aprobado"});
+    if (!movimientos) {
+      return res.status(404).json({
+        status: 404,
+        message: "No se encontró a los mov Aprobados",
+      });
+    }     
+    return res.status(200).json(
+      {status: 200,
+       message: "Se ha obtenido los mov Aprobados",
+       data: movimientos}
+     );
+  } catch (error) {
+    return res.status(500).json(
+      {status: 500,
+      message: "Se ha producido un ERROR al obtener los mov Aprobados",
+      }
+      );
+  }
+}
