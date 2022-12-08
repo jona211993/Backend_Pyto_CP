@@ -33,17 +33,21 @@ export const createMovimiento = async (req, res) => {
     //     codigo_product, name_product,description,categoria,
     //     stock, precio, cantidad
     if (tipo == "Salida") {
+      
       for (let item of lista_items) {
         // Validación de operacion aceptada con el stock
-
-        if (item.cantidad > item.stock) {
+        const item_code = item.codigo_product;
+        const Producto_item = await Producto.findOne({
+          codigo: item_code,
+        });
+        if (item.cantidad > Producto_item.stock) {
           return res.status(ERROR_MESSAGE.BAD_REQUEST).json({
             message: "NO SE PUEDE REALIZAR OPERACION, STOCK INSUFICIENTE",
           });
         }
 
-        console.log("old stock", item.stock);
-        const stock_new = item.stock - item.cantidad;
+        console.log("old stock", Producto_item.stock);
+        const stock_new = Producto_item.stock - item.cantidad;
         console.log("new stock", stock_new);
         // Actualizar Colleccion Productos
         const Producto_upd = await Producto.findOneAndUpdate(
@@ -68,8 +72,12 @@ export const createMovimiento = async (req, res) => {
     else {
       for (let item of lista_items) {
         try {
-          console.log("old stock", item.stock);
-          let stock_new = item.stock + item.cantidad;
+          const item_code = item.codigo_product;
+          const Producto_item = await Producto.findOne({
+            codigo: item_code,
+          });
+          console.log("old stock", Producto_item.stock);
+          let stock_new = Producto_item.stock + item.cantidad;
           console.log("new stock", stock_new);
           let code_product = item.codigo_product;
           // Actualizar Colleccion Productos
