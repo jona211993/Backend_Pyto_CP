@@ -290,7 +290,7 @@ export const updateAnular = async (req, res) => {
 };
 
 // Autor: Jonatan Pacora
-// 6/12/22
+// 13/12/22
 /* Codigo permite Obtener los movimientos aprobados*/
 
 export const getMovimientosAprobados = async (req, res) => {
@@ -311,6 +311,33 @@ export const getMovimientosAprobados = async (req, res) => {
     return res.status(500).json(
       {status: 500,
       message: "Se ha producido un ERROR al obtener los mov Aprobados",
+      }
+      );
+  }
+}
+
+// Autor: Jonatan Pacora
+// 13/12/22
+/* Codigo permite Obtener los movimientos Anulados*/
+
+export const getMovimientosAnulados = async (req, res) => {
+  try{
+    const movimientos = await Movimiento.find({estado:"Anulado"});
+    if (!movimientos) {
+      return res.status(404).json({
+        status: 404,
+        message: "No se encontró a los mov Aprobados",
+      });
+    }     
+    return res.status(200).json(
+      {status: 200,
+       message: "Se ha obtenido los mov Anulados",
+       data: movimientos}
+     );
+  } catch (error) {
+    return res.status(500).json(
+      {status: 500,
+      message: "Se ha producido un ERROR al obtener los mov Anulados",
       }
       );
   }
