@@ -4,6 +4,11 @@ import { BadRequestException } from "../exceptions/BadRequestException";
 import { InternalServerException } from "../exceptions/InternalServerException";
 import { NotFoundException } from "../exceptions/NotFoundException";
 import ERROR_MESSAGE from "../constants/error.enum";
+
+const pdf = require("html-pdf");
+const fs = require('fs');
+const ubicacionPlantilla = require.resolve("./../design_pdf/factura.html");
+
 // Autor: Jonatan Pacora
 // 30/11/22
 /* el codigo aqui es usado para el
@@ -338,6 +343,77 @@ export const getMovimientosAnulados = async (req, res) => {
     return res.status(500).json(
       {status: 500,
       message: "Se ha producido un ERROR al obtener los mov Anulados",
+      }
+      );
+  }
+}
+
+
+// Autor: Andhersson Salazar
+// 14/12/22
+/* el codigo aqui es usado para el
+ CUS 29 generar reporte de movimiento*/
+export const getReporte = async (req, res) => {
+  try{
+    const { codigo } = req.params;
+    let movimiento = await Movimiento.findOne({ codigo: codigo });
+    let contenidoHtml = fs.readFileSync(ubicacionPlantilla, 'utf8')
+    var productos=movimiento.lista_items
+    const formateador = new Intl.NumberFormat("en", { style: "currency", "currency": "PEN" });
+    // Generar el HTML de la tabla
+    let tabla = "";
+    let subtotal = 0;
+    for (const producto of productos) {
+        // Aumentar el total
+        const totalProducto = producto.cantidad * producto.precio;
+        subtotal += totalProducto;
+        // Y concatenar los productos
+        tabla += `<tr>
+        <td>${producto.name_product}</td>
+        <td>${producto.description}</td>
+        <td>${producto.cantidad}</td>
+        <td>${formateador.format(producto.precio)}</td>
+        <td>${formateador.format(totalProducto)}</td>
+        </tr>`;
+    }
+    const descuento = 0;
+    const subtotalConDescuento = subtotal - descuento;
+    const impuestos = subtotalConDescuento * 0.16
+    const total = subtotalConDescuento + impuestos;
+    // Remplazar el valor {{tablaProductos}} por el verdadero valor
+    contenidoHtml = contenidoHtml.replace("{{tablaProductos}}", tabla);
+
+    // Y también los otros valores
+
+    contenidoHtml = contenidoHtml.replace("{{fecha}}", movimiento.fecha.toLocaleDateString());
+    contenidoHtml = contenidoHtml.replace("{{estado}}", movimiento.estado);
+    contenidoHtml = contenidoHtml.replace("{{tipo}}", movimiento.tipo);
+    contenidoHtml = contenidoHtml.replace("{{factura}}", movimiento.factura);
+    contenidoHtml = contenidoHtml.replace("{{responsable}}", movimiento.name_responsable);
+    //contenidoHtml = contenidoHtml.replace("{{subtotal}}", formateador.format(subtotal));
+    //contenidoHtml = contenidoHtml.replace("{{descuento}}", formateador.format(descuento));
+    //contenidoHtml = contenidoHtml.replace("{{subtotalConDescuento}}", formateador.format(subtotalConDescuento));
+    //contenidoHtml = contenidoHtml.replace("{{impuestos}}", formateador.format(impuestos));
+    contenidoHtml = contenidoHtml.replace("{{total}}", formateador.format(subtotal));
+    const f=new Date()
+    var fecha_archivo=f.toLocaleDateString().replaceAll('/','-')
+    var archivo_generado="./archivos/movimiento-"+movimiento.codigo+" - "+fecha_archivo+".pdf";
+    pdf.create(contenidoHtml).toFile(archivo_generado, (error) => {
+        if (error) {
+            console.log("Error creando PDF: " + error)
+        } else {
+            console.log("PDF creado correctamente");
+        }
+    });
+    return res.status(200).json(
+      {status: 200,
+       message: "Se ha obtenido el reporte",
+       data: archivo_generado}
+     );
+  } catch (error) {
+    return res.status(500).json(
+      {status: 500,
+      message: "Se ha producido un ERROR al obtener el reporte",
       }
       );
   }
