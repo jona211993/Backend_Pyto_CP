@@ -369,8 +369,8 @@ export const getReporte = async (req, res) => {
         subtotal += totalProducto;
         // Y concatenar los productos
         tabla += `<tr>
-        <td>${producto.name_product}</td>
-        <td>${producto.description}</td>
+        <td>${producto.nombre}</td>
+        <td>${producto.descripcion}</td>
         <td>${producto.cantidad}</td>
         <td>${formateador.format(producto.precio)}</td>
         <td>${formateador.format(totalProducto)}</td>
