@@ -1,5 +1,6 @@
 import express from 'express'
 import morgan from 'morgan'
+require("dotenv").config();
 
 import { createRoles } from './libs/initialSetup'
 
@@ -12,7 +13,7 @@ import movimientoRoutes from './routes/movimiento'
 
 const cors = require('cors')
 let corsOptions = {
-    origin: 'trustedwebsite.com' // Compliant
+    origin: `${process.env.CORS_ORIGIN}` // Compliant
   };
 let app = express();
 app.disable("x-powered-by");
